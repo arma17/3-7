@@ -1,0 +1,740 @@
+* {
+    box-sizing: border-box; /* padding и border не увеличивают размер элемента */
+}
+
+@font-face {
+    font-family: 'GolosText';
+    src: url('fonts/GolosText-Regular.woff') format('woff');
+    font-weight: 400; /* Regular */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GolosText';
+    src: url('fonts/GolosText-Bold.woff') format('woff');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+}
+
+body {
+    font-family: GolosText;
+    margin: 0;
+    padding: 0px;
+    text-align: center;
+}
+
+.main-header {
+    background: #ffffff;
+    box-shadow: 0 0px 50px 0px rgba(255, 250, 250, 0.46); /* Тень для визуального разделения */
+    position: sticky; /* Липкое позиционирование */
+    top: 0; /* Прилипание к верхнему краю */
+    z-index: 1000; /* Хедер поверх других элементов */
+}
+
+.header-content {
+    margin: 0 auto; /* Центрирование по горизонтали */
+    padding: 1rem 2rem; /* Внутренние отступы: 16px сверху/снизу, 32px слева/справа */
+    display: flex; /* Flex-контейнер для выравнивания лого и меню */
+    justify-content: space-between; /* Лого слева, меню справа */
+    align-items: center; /* Вертикальное выравнивание по центру */
+}
+
+
+.logo-img {
+    width: 65px; /* Фиксированная ширина */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    object-fit: contain; /* Сохранение пропорций изображения */
+}
+
+.nav-list {
+    display: flex;
+    gap: 2rem; /* Расстояние между пунктами меню */
+    list-style: none; /* Убираем маркеры списка */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #444; /* Цвет ссылок */
+    font-weight: 500; /* Полужирное начертание */
+    transition: all 0.3s; /* Плавные переходы */
+    position: relative; /* Для псевдоэлемента */
+}
+
+.nav-link:hover {
+    color: #bdbdbd; /* Изменение цвета */
+}
+
+/* Стили для фона */
+.hero {
+    position: relative;
+    height: 94vh; /* 100% высоты экрана */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0, 0, 0);
+}
+
+/* Стили для видеофона */
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 1;
+    object-fit: cover; /* Кадрирование видео */
+}
+
+/* Затемнение фона */
+.video-overlay { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 2;
+}
+
+/* Текстовый контент */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 170px;
+    animation: fadeInUp 2s ease-out; /* Анимация появления */
+}
+
+.hero-title {
+    font-size: 10rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0em;
+    color: rgb(255, 255, 255);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: rgb(255, 255, 255);
+}
+
+/* Анимация */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+    margin-top: 80px;
+    max-width: 1000px;
+    padding: 0 100px; /* Увеличиваем с 20px до 100px */
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1; /* Равномерное распределение пространства */
+    min-width: 100px; /* Минимальная ширина кнопки */
+    padding: 15px 20px;
+    border: none;
+    margin-top: 25px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap; /* Текст не переносится */
+    flex-shrink: 0;
+}
+
+.btn--primary { background: #878787; color: white; }
+.btn--secondary { background: #878787; color: white; }
+.btn--accent { background: #878787; color: white; }
+
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0 auto;
+    transition: 
+        max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+        opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: max-height, opacity, padding;
+}
+
+.projects-container.visible {
+    max-height: 2000px;
+    opacity: 1;
+    padding: 20px 100px; /* Увеличиваем боковые отступы до 100px */
+}
+
+.projects-container.hidden {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    pointer-events: none;
+    transition: 
+        opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
+        padding 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card {
+    background: white; /* Возвращаем белый фон */
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+    text-align: left;
+}
+
+/* Добавим задержку для каждой карточки для эффекта каскада */
+.projects-container.visible .project-card:nth-child(1) {
+    transition-delay: 0.05s;
+}
+.projects-container.visible .project-card:nth-child(2) {
+    transition-delay: 0.1s;
+}
+.projects-container.visible .project-card:nth-child(3) {
+    transition-delay: 0.15s;
+}
+
+.projects-container.visible .project-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px; /* Фиксированная высота */
+    object-fit: cover; /* Кадрируем изображение */
+    border-radius: 8px;
+}
+
+.project-card h3 {
+    margin: 20px 0 10px 0; /* Сброс стандартных отступов */
+}
+
+.project-card p {
+    color: #b0b0b0;
+    line-height: 1.5;
+    margin: 0; 
+}
+
+.stats {
+    padding: 80px 0;
+    background: #ffffff;
+    width: 100%; /* Растягиваем на всю ширину */
+}
+
+.stats-container {
+    width: 100%;
+    padding: 0 100px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+        "stat1 stat2 stat3"
+        "stat1 stat2 stat4";
+    gap: 15px;
+}
+
+.stats-item:nth-child(1) { grid-area: stat1; }
+.stats-item:nth-child(2) { grid-area: stat2; }
+.stats-item:nth-child(3) { grid-area: stat3; }
+.stats-item:nth-child(4) { grid-area: stat4; }
+
+/* Сохраняем внешний вид карточек */
+.stats-item {
+    background: #f5f5f5;
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid #e0e0e0;
+    box-shadow: none;
+    
+    /* Улучшаем структуру для точного выравнивания */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end; /* Изменяем с baseline на flex-end для выравнивания по нижней линии */
+    gap: 20px;
+}
+
+.stats-number {
+    font-size: 72px;
+    font-weight: 700;
+    color: #000000;
+    line-height: 0.9; /* Уменьшаем высоту строки для более точного выравнивания */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    margin-bottom: -5px; /* Небольшая корректировка для выравнивания с текстом */
+}
+
+.stats-text {
+    font-size: 18px;
+    color: #444;
+    line-height: 1.4;
+    text-align: left;
+    margin-bottom: 5px; /* Фиксированный отступ снизу для всех текстовых блоков */
+}
+
+/* Стрелка для роста */
+.growth-icon {
+    color: #4CAF50;
+    font-size: 24px;
+    margin-right: 5px;
+    margin-bottom: 5px; /* Выравниваем стрелку с текстом */
+}
+
+/* Добавляем медиа-запрос для средних экранов (между десктопом и мобильными) */
+@media (max-width: 1200px) and (min-width: 769px) {
+    .stats-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas: 
+            "stat1 stat3"
+            "stat2 stat4";
+    }
+    
+    /* При этом размере экрана все карточки имеют одинаковую высоту */
+    .stats-item:nth-child(1),
+    .stats-item:nth-child(2) {
+        height: auto; /* Отменяем растягивание на два ряда */
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .header-content {
+        padding: 1rem; /* Уменьшаем отступы */
+    }
+
+    .nav-list {
+        gap: 1.5rem; /* Меньшее расстояние между пунктами */
+    }
+
+    .logo-text {
+        display: none; /* Скрываем текст лого на маленьких экранах */
+    }
+
+    .hero-title {
+        font-size: 5rem;
+        letter-spacing: 0.2em;
+    }
+    
+    .hero-subtitle {
+        font-size: 2.4rem;
+    }
+
+    .buttons-container,
+    .projects-container.visible,
+    .stats-container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .btn {
+        width: 100%;
+        flex: none;
+    }
+
+    .stats-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas: 
+            "stat1" "stat2" "stat3" "stat4";
+    }
+    
+    .stats-item {
+        padding: 30px;
+        gap: 15px;
+    }
+    
+    .stats-number {
+        font-size: 60px;
+    }
+    
+    .stats-text {
+        font-size: 16px;
+    }
+
+    .hero-content {
+        padding: 15px;
+        width: 90%; /* Ограничение ширины контейнера */
+        margin-bottom: 100px; /* Уменьшаем отступ снизу */
+    }
+
+    .about-section {
+        height: auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        padding: 40px 0;
+    }
+    
+    .about-container {
+        flex-direction: column;
+        gap: 40px;
+        padding-left: 0; /* Убираем левый отступ полностью */
+        padding-right: 0; /* Убираем правый отступ полностью */
+        width: 100%; /* Явно указываем ширину 100% */
+    }
+    
+    .about-content,
+    .about-form-container {
+        padding: 0 20px; /* Добавляем отступы для текста и формы */
+        width: 100%; /* Явно указываем ширину 100% */
+    }
+}
+
+@media (max-width: 600px) {
+    button {
+        margin-bottom: 25px;
+    }
+
+    .nav-list {
+        gap: 1rem; /* Минимальное расстояние */
+    }
+
+    .nav-link {
+        font-size: 0.9rem; /* Уменьшаем размер шрифта */
+    }
+
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 2rem;
+    }
+
+    .projects-container {
+        grid-template-columns: 1fr; /* Одна колонка */
+        row-gap: 20px; /* Фиксируем вертикальный отступ */
+        padding: 10px; /* Уменьшаем отступы контейнера */
+    }
+
+    .project-card {
+        padding: 15px; /* Меньший padding на мобильных */
+    }
+
+    .project-card img {
+        height: 150px;
+    }
+
+}
+
+/* Секция О нас */
+.about-section {
+    padding: 0; /* Убираем вертикальные отступы */
+    background: #f5f5f5; /* Восстанавливаем светло-серый фон */
+    height: 70vh; /* 70% высоты экрана */
+    display: flex;
+    align-items: center; /* Центрируем содержимое по вертикали */
+    width: 100%; /* На всю ширину экрана */
+}
+
+.about-container {
+    width: 100%; /* На всю ширину, как другие секции */
+    padding: 0 100px; /* Устанавливаем боковые отступы, как в блоке статистики */
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    box-sizing: border-box;
+}
+
+.about-content {
+    flex: 1;
+    min-width: 300px;
+    text-align: left;
+}
+
+.about-title {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-weight: 700;
+    color: #000000;
+    position: relative;
+}
+
+.about-title:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #000000;
+}
+
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.about-btn {
+    background: #000000;
+    color: white;
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+}
+
+.about-form-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+.form-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    text-align: left;
+    color: #000000;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'GolosText', sans-serif;
+    background: #f5f5f5;
+}
+
+.contact-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+.form-btn {
+    background: #000000;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-self: flex-start; /* Кнопка выравнивается по левому краю */
+}
+
+.form-btn:hover {
+    background: #333;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .about-section {
+        height: auto; /* На мобильных устройствах высота автоматическая */
+        padding: 60px 0; /* Добавляем вертикальные отступы на мобильных */
+    }
+    
+    .about-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .about-title {
+        font-size: 2rem;
+    }
+    
+    .form-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Новый блок */
+.new-section {
+    padding: 60px 0; /* Вертикальные отступы */
+    background: #ffffff; /* Белый фон */
+    width: 100%; /* На всю ширину экрана */
+}
+
+.new-container {
+    width: 100%; /* На всю ширину, как другие секции */
+    padding: 0 100px; /* Устанавливаем боковые отступы, как в других секциях */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    box-sizing: border-box;
+}
+
+.new-title {
+    font-size: 2.5rem; /* Размер заголовка */
+    margin-bottom: 20px; /* Отступ снизу */
+    font-weight: 700; /* Жирный шрифт */
+    color: #000000; /* Цвет текста */
+}
+
+.new-text {
+    font-size: 1.1rem; /* Размер текста */
+    line-height: 1.6; /* Высота строки */
+    color: #444; /* Цвет текста */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+/* Секция Вопросы */
+.questions-section {
+    padding: 60px 0; /* Вертикальные отступы */
+    background: #ffffff; /* Белый фон */
+    width: 100%; /* На всю ширину экрана */
+}
+
+.questions-container {
+    width: 100%; /* На всю ширину, как другие секции */
+    padding: 0 100px; /* Устанавливаем боковые отступы, как в других секциях */
+    margin: 0 auto;
+    display: flex;
+    gap: 50px; /* Отступ между двумя частями */
+    box-sizing: border-box;
+}
+
+.questions-content {
+    flex: 1; /* Занимает оставшееся пространство */
+    text-align: left; /* Выравнивание текста по левому краю */
+}
+
+.questions-title {
+    font-size: 2.5rem; /* Размер заголовка */
+    margin-bottom: 32px; /* Отступ снизу */
+    font-weight: 700; /* Жирный шрифт */
+    color: #000000; /* Цвет текста */
+}
+
+.questions-text {
+    font-size: 1.1rem; /* Размер текста */
+    line-height: 1.6; /* Высота строки */
+    color: #444; /* Цвет текста */
+    margin-bottom: 20px; /* Отступ снизу */
+    text-align: left; /* Выравнивание текста по левому краю */
+}
+
+/* Аккордеон */
+.accordion-container {
+    flex: 1; /* Занимает оставшееся пространство */
+}
+
+.accordion-item {
+    margin-bottom: 10px; /* Отступ между аккордеонами */
+    border: 1px solid #e0e0e0; /* Граница аккордеона */
+    border-radius: 8px; /* Закругление углов */
+    overflow: hidden; /* Скрываем переполнение */
+}
+
+.accordion-title {
+    background: #f5f5f5; /* Цвет фона заголовка */
+    padding: 15px; /* Внутренние отступы */
+    cursor: pointer; /* Указатель при наведении */
+    font-weight: 600; /* Полужирный шрифт */
+    transition: background 0.3s; /* Плавный переход цвета фона */
+}
+
+.accordion-title:hover {
+    background: #e0e0e0; /* Цвет фона при наведении */
+}
+
+.accordion-content {
+    display: none; /* Скрываем содержимое по умолчанию */
+    padding: 15px; /* Внутренние отступы для содержимого */
+    background: #ffffff; /* Цвет фона содержимого */
+}
+
+.accordion-item.active .accordion-content {
+    display: block; /* Показываем содержимое при открытии аккордеона */
+}
+
+/* Секция Футер */
+.footer-section {
+    height: 10vh; /* 50% высоты экрана */
+    background: #000000; /* Светло-серый фон */
+    display: flex; /* Используем flexbox для выравнивания */
+    align-items: center; /* Центрируем содержимое по вертикали */
+    justify-content: space-between; /* Разделяем логотип и меню */
+    padding: 20px 100px; /* Отступы */
+}
+
+.footer-container {
+    display: flex; /* Горизонтальное расположение */
+    width: 100%; /* На всю ширину */
+    justify-content: space-between; /* Разделяем логотип и меню */
+    align-items: center; /* Выравниваем элементы по центру */
+}
+
+.footer-logo {
+    width: 100px; /* Ширина логотипа */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+}
+
+.footer-nav-list {
+    list-style: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем отступы */
+    margin: 0; /* Убираем отступы */
+    display: flex; /* Горизонтальное расположение */
+    gap: 20px; /* Отступ между пунктами меню */
+    margin-left: auto; /* Прижимаем меню к правому краю */
+    align-items: center; /* Выравниваем пункты меню по центру */
+}
+
+.footer-nav-link {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #838383; /* Цвет ссылок */
+    font-weight: 500; /* Полужирное начертание */
+    transition: color 0.3s; /* Плавные переходы */
+}
+
+.footer-nav-link:hover {
+    color: #ffffff; /* Изменение цвета при наведении */
+}
