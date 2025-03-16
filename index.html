@@ -29,6 +29,7 @@
         <div class="hero-content">
             <h1 class="hero-title">Баланс</h1>
             <h2 class="hero-subtitle">между инновацией и традицией</h2>
+            <button class="glow-on-hover" type="button" onclick="scrollToAbout()">Узнать больше</button>
         </div>
     </section>
 
@@ -74,16 +75,9 @@
     <section id="about" class="about-section">
         <div class="about-container">
             <div class="about-content">
-                <h2 class="about-title">О нашей компании</h2>
-                <p class="about-text">
-                    Мы создаем инновационные решения в области дизайна и разработки, 
-                    сочетая современные технологии с проверенными традициями.
-                </p>
-                <p class="about-text">
-                    Наша команда экспертов помогает бизнесу выделиться на рынке, 
-                    создавая уникальные визуальные образы и эффективные цифровые продукты.
-                </p>
-                <button class="btn about-btn">Узнать больше</button>
+                <h2 class="about-title">О нас</h2>
+                <p class="about-text">Мы работаем на стыке цифрового и физического: разрабатываем бренды, которые запоминаются, интерфейсы, которые удивляют, и пространства, которые вдохновляют. Наша команда — это стратеги, дизайнеры и storytellers, для которых нет слова «невозможно». Мы разбираем задачи на атомы, чтобы собрать из них нечто большее — то, что работает на ваш успех.</p>
+                <button class="btn btn--primary" id="learnMoreBtn">Узнать больше</button>
             </div>
             
             <div class="about-form-container">
@@ -103,6 +97,15 @@
             </div>
         </div>
     </section>
+
+    <!-- Поп-ап -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            <h2>Заголовок поп-апа</h2>
+            <p>3/7 — это не про компромиссы. Это про баланс между дерзостью и логикой, скоростью и качеством, мечтой и результатом. Мы не просто исполняем запросы — мы проектируем эмоции.</p>
+        </div>
+    </div>
 
     <section class="questions-section">
         <div class="questions-container">

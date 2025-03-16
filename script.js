@@ -142,3 +142,57 @@ function renderProjects(category) {
 btnBranding.addEventListener('click', () => toggleProjects('branding', btnBranding));
 btnWebsites.addEventListener('click', () => toggleProjects('websites', btnWebsites));
 btnEvents.addEventListener('click', () => toggleProjects('events', btnEvents));
+
+// Получаем элементы
+const learnMoreBtn = document.getElementById('learnMoreBtn');
+const popup = document.getElementById('popup');
+const closeBtn = document.getElementById('closeBtn');
+
+// Открываем поп-ап при нажатии на кнопку
+learnMoreBtn.addEventListener('click', () => {
+    popup.style.display = 'flex'; // Показываем поп-ап
+});
+
+// Закрываем поп-ап при нажатии на кнопку закрытия
+closeBtn.addEventListener('click', () => {
+    popup.style.display = 'none'; // Скрываем поп-ап
+});
+
+// Закрываем поп-ап при клике вне его
+window.addEventListener('click', (event) => {
+    if (event.target === popup) {
+        popup.style.display = 'none'; // Скрываем поп-ап
+    }
+});
+
+// Получаем все элементы аккордеона
+const accordionItems = document.querySelectorAll('.accordion-item');
+
+// Добавляем обработчик событий для каждого элемента аккордеона
+accordionItems.forEach(item => {
+    const title = item.querySelector('.accordion-title');
+    
+    title.addEventListener('click', () => {
+        // Закрываем все открытые аккордеоны
+        accordionItems.forEach(i => {
+            if (i !== item) {
+                i.classList.remove('active');
+                i.querySelector('.accordion-content').style.display = 'none'; // Скрываем содержимое
+            }
+        });
+        
+        // Переключаем активный класс для текущего элемента
+        item.classList.toggle('active');
+        const content = item.querySelector('.accordion-content');
+        if (item.classList.contains('active')) {
+            content.style.display = 'block'; // Показываем содержимое
+        } else {
+            content.style.display = 'none'; // Скрываем содержимое
+        }
+    });
+});
+
+function scrollToAbout() {
+    const aboutSection = document.getElementById('about');
+    aboutSection.scrollIntoView({ behavior: 'smooth' }); // Плавный скролл к секции "О нас"
+}
